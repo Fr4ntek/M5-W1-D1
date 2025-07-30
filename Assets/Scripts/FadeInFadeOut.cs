@@ -10,11 +10,17 @@ public class FadeInFadeOut : MonoBehaviour
     [SerializeField] private float _fadeTime = 5f;
 
     private int _target = 0;
+    private Coroutine _currentFade;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(FadeImage(_target % 2));
+
+            if (_currentFade != null)
+            {
+                StopAllCoroutines();
+            }
+            _currentFade = StartCoroutine(FadeImage(_target % 2));
             _target++;
         }
     }
